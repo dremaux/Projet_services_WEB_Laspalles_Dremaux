@@ -48,15 +48,20 @@ class GenreRepository {
                 }
                 else {
                     this.database.run(
-                        `DELETE FROM genre WHERE id = ?`,
+                        `DELETE FROM genres WHERE id = ?`,
                         [id],
                         (err) => {
-                            console.error(err.message)
-                        }
-                    )
-                }
-            })
-        })
-        
-
+                            if (err) {
+                                console.error(err.message);
+                                reject(err);
+                            }else{
+                                resolve(true);
+                            }
+                        },
+                    );
+            }
+            });
+    })}        
+}
 module.exports = GenreRepository;
+//{"first_name":"Louis","last_name":"De Funès","date_of_birth":"1914-07-31","date_of_death":"1983-01-27"}

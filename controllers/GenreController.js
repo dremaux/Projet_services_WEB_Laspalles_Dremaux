@@ -18,7 +18,7 @@ exports.genre_list = (req, res) => {
 
 exports.genre_create = (req, res) => {
     const errors = [];
-    ['id', 'name'].forEach((field) => {
+    ['name'].forEach((field) => {
         if (!req.body[field]) {
             errors.push(`Field '${field}' is missing from request body`);
         }

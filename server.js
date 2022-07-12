@@ -21,6 +21,17 @@ app.get('/', (req, res)=> {
     res.json({ message: 'Hello World'});
 });
 
+// utilisation de l'API KEY
+app.use((req, res, next) => {
+    const apiKey = req.get('Authorization')
+    if (!apiKey || apiKey !== `Bearer ${API_KEY}`) {
+      res.status(401).json({error: 'unauthorised'})
+    } else {
+      next()
+    }
+  })
+const API_KEY = "8f94826adab8ffebbeadb4f9e161b2dc";
+
 /*********************       /genre       **************************/
 
 app.use('/api/genre', genreRoutes);
