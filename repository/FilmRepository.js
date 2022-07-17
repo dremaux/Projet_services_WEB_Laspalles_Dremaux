@@ -7,7 +7,7 @@ class FilmRepository {
 
     list() {
         return new Promise((resolve, reject) => {
-            this.database.all('SELECT films.id AS "id_films", films.name AS "film_name", films.synopsis, films.release_year, films.genre_id, genres.name AS "genre_name", actors.id AS "id_actor", actors.first_name AS "actor_first_name", actors.last_name AS "actor_last_name", actors.date_of_birth AS "date_of_birth", actors.date_of_death AS "date_of_death" FROM films, genres, actors, films_actors WHERE genres.id = films.genre_id AND films_actors.film_id = films.id AND films_actors.actor_id = actors.id', [], (err, rows) => {
+            this.database.all('SELECT * FROM films, genres, actors', [], (err, rows) => {
                 if (err) {
                     console.error(err.message);
                     reject(err);
@@ -36,17 +36,31 @@ class FilmRepository {
             this.database.run(
                 'INSERT INTO films (name, synopsis, release_year, genre_id) VALUES (?,?,?,?)',
                 [data.name, data.synopsis, data.release_year, data.genre_id],
-                function (err) {
-                    if (err) {
-                        console.error(err.message);
-                        reject(err);
-                    } else {
-                        resolve(this.lastID);
-                    }
-                },
-            );
-        });
-    }
+                    function (err) {
+                        if (err) {
+                            console.error(err.message);
+                            reject(err);
+                        } else {
+                            resolve(this.lastID);
+                        }
+                    },
+                );
+            });
+        }
+
+//                        const obj = JSON.parse(data); // je parse le json
+/*
+                        this.database.all('SELECT id = ? FROM genres', [obj.genre_id], (rows2)=>{
+                            if(rows2.length <= 0){
+                                reject("genre invalide/introuvable");
+                            }else{}})
+*/                            
+/*                       
+                        this.database.all('SELECT id = ? FROM actors', [obj._id], (rows3)=>{
+                            if(rows3.length <= 0){
+                                reject("actor invalide/introuvable");
+                            }else{}})
+*/
 
     update(id, data) {
         return new Promise((resolve, reject) => {
