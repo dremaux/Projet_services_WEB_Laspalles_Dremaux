@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 const genreRoutes = require('./routes/genre');
 const actorRoutes = require('./routes/actor');
 const filmRoutes = require('./routes/film');
-
+const API_KEY = "8f94826adab8ffebbeadb4f9e161b2dc";
 const HTTP_PORT = 8000;
 
 app.listen(HTTP_PORT, ()=> {
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
       next()
     }
   })
-const API_KEY = "8f94826adab8ffebbeadb4f9e161b2dc";
+
 
 /*********************       /genre       **************************/
 
